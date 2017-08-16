@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-node ("windows") {
+node {
     stage('checkout') {
         checkout scm
     }
