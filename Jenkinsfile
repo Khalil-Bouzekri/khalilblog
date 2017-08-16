@@ -1,17 +1,21 @@
 #!/usr/bin/env groovy
 
+def shell(command) {
+    return bat(returnStdout: true, script: "sh -x -c \"${command}\"").trim()
+}
+
 node {
     stage('checkout') {
         checkout scm
     }
 
     stage('check java') {
-        bat "java -version"
+        shell("java -version")
     }
 
     stage('clean') {
-        bat "chmod +x mvnw"
-        bat "mvnw clean"
+        shell("chmod +x mvnw")
+        shell("mvnw clean")
     }
 
     stage('install tools') {
