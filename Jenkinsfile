@@ -10,7 +10,7 @@ node {
     }
 
     stage('clean') {
-        bat "chmod +x mvnw"
+        #bat "chmod +x mvnw"
         bat "mvnw clean"
     }
 
