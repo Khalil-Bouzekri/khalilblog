@@ -6,25 +6,25 @@ node {
     }
 
     stage('check java') {
-        sh "java -version"
+        bat "java -version"
     }
 
     stage('clean') {
-        sh "chmod +x mvnw"
-        sh "./mvnw clean"
+        bat "chmod +x mvnw"
+        bat "./mvnw clean"
     }
 
     stage('install tools') {
-        sh "./mvnw com.github.eirslett:frontend-maven-plugin:install-node-and-npm -DnodeVersion=v6.11.1 -DnpmVersion=5.3.0"
+        bat "./mvnw com.github.eirslett:frontend-maven-plugin:install-node-and-npm -DnodeVersion=v6.11.1 -DnpmVersion=5.3.0"
     }
 
     stage('npm install') {
-        sh "./mvnw com.github.eirslett:frontend-maven-plugin:npm"
+        bat "./mvnw com.github.eirslett:frontend-maven-plugin:npm"
     }
 
     stage('backend tests') {
         try {
-            sh "./mvnw test"
+            bat "./mvnw test"
         } catch(err) {
             throw err
         } finally {
@@ -34,7 +34,7 @@ node {
 
     stage('frontend tests') {
         try {
-            sh "./mvnw com.github.eirslett:frontend-maven-plugin:npm -Dfrontend.yarn.arguments=test"
+            bat "./mvnw com.github.eirslett:frontend-maven-plugin:npm -Dfrontend.yarn.arguments=test"
         } catch(err) {
             throw err
         } finally {
@@ -43,13 +43,13 @@ node {
     }
 
     stage('packaging') {
-        sh "./mvnw package -Pprod -DskipTests"
+        bat "./mvnw package -Pprod -DskipTests"
         archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
     }
 
     stage('quality analysis') {
         withSonarQubeEnv('Sonar') {
-            sh "./mvnw sonar:sonar"
+            bat "./mvnw sonar:sonar"
         }
     }
 }
