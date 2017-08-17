@@ -32,9 +32,9 @@ node {
         }
     }
 
-	/*
+	
 
-    stage('frontend tests') {
+  /*  stage('frontend tests') {
         try {
             bat "mvnw com.github.eirslett:frontend-maven-plugin:npm -Dfrontend.yarn.arguments=test"
         } catch(err) {
@@ -42,9 +42,9 @@ node {
         } finally {
             junit '**/target/test-results/karma/TESTS-*.xml'
         }
-    }
+    } */
     
-    */
+    
 
     stage('packaging') {
         bat "mvnw package -Pprod -DskipTests"
