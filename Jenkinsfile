@@ -32,20 +32,18 @@ node {
         }
     }
 
-	
-
-  /*  stage('frontend tests') {
-        try {
-            bat "mvnw com.github.eirslett:frontend-maven-plugin:npm -Dfrontend.yarn.arguments=test"
-        } catch(err) {
-            throw err
-        } finally {
-            junit '**/target/test-results/karma/TESTS-*.xml'
-        }
-    } */
+  /*
+   *  stage('frontend tests') {
+   *     try {
+   *         bat "mvnw com.github.eirslett:frontend-maven-plugin:npm -Dfrontend.yarn.arguments=test"
+   *     } catch(err) {
+   *         throw err
+   *     } finally {
+   *         junit '**/target/test-results/karma/TESTS-*.xml'
+   *     }
+   * }
+   */ 
     
-    
-
     stage('packaging') {
         bat "mvnw package -Pprod -DskipTests"
         archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
